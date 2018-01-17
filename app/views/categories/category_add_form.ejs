@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<% include ../partials/head.ejs %>
+<body>
+<% include ../partials/header.ejs %>
+<div class="ui container main admin-menu">
+    <h1 class="ui header">Category Form</h1>
+    <form class="ui form">
+        <div class="field">
+            <label id="description">Category:</label>
+            <input type="text" id="description" name="description">
+        </div>
+        <div class="field">
+            <label id="sequence">Sequence:</label>
+            <input type="text" id="sequence" name="sequence">
+        </div>
+        <button class="ui button" type="submit">Submit</button>
+    </form>
+
+</div>
+<% include ../partials/footer.ejs %>
+</body>
+</html>
