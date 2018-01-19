@@ -11,7 +11,7 @@ exports.post_show = function (req, res) {
         if(err){
             console.log(err);
         } else {
-            console.log('The category type is %s', posts.category );
+            console.log('Check this out ' + posts);
             res.render('posts/show', { title: 'Posts', posts:posts });
         }
     })
@@ -48,18 +48,24 @@ exports.post_save = function (req, res) {
     var title = req.body.title,
         summary = req.body.summary,
         category = req.body.category,
-        author = req.body.author,
-        newPost = {title: title, summary: summary, category: category, author: author};
-
-    console.log('*********Author is***********' + author);
+        author = req.body.author;
+        newPost = {title: title, summary: summary, category: category, author: author._id};
 
     Post.create(newPost, function (err, post) {
-            if (err) {
+        Author.findOne({name: author}, function (err, foundAuthor) {
+            if(err) {
                 console.log(err);
             } else {
-                console.log(post);
-                res.redirect('/posts');
+                foundAuthor.posts.push(post._id);
+                foundAuthor.save(function(err, data){
+                    if(err){
+                        console.log(err);
+                    } else {console.log(data);
+                        res.redirect('/posts');
+                    }
+                })
             }
+        });
     })
 };
 

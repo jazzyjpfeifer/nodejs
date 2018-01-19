@@ -9,6 +9,7 @@
         <thead>
         <tr>
             <th>Name:</th>
+            <th>Posts:</th>
             <th>Actions:</th>
         </tr>
         </thead>
@@ -16,6 +17,7 @@
         <% authors.forEach(function(author){ %>
         <tr>
             <td><%= author.name%></td>
+            <td><%= author.posts.name%></td>
             <td>
                 <a class="ui tiny button edit" href="/categories/<%=author._id%>/edit">Edit</a>
                     <form class=delete-button id="delete-form" action="categories/<%=author._id %>?_method=DELETE" method="post">
