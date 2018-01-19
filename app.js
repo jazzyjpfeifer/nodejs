@@ -4,19 +4,26 @@ var express = require('express'),
     logger = require('morgan'),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
-    mongoose = require("mongoose"),
-    methodOverride = require("method-override");
+    mongoose = require('mongoose'),
+    methodOverride = require('method-override');
 //Models
-var Category = require("./app/modules/categoryInstance");
+var Category = require('./app/models/categoryInstance'),
+    Post = require('./app/models/postInstance');
 
 
 //require routes
-var categories = require('./routes/categories');
-var index = require('./routes/index');
-var users = require('./routes/users');
-var posts = require('./routes/posts');
+var authors = require('./routes/authors'),
+    categories = require('./routes/categories'),
+    index = require('./routes/index'),
+    users = require('./routes/users'),
+    posts = require('./routes/posts');
 
-var url = mongoose.connect('mongodb://localhost/bi-steps', {useMongoClient: true});
+mongoose.Promise = global.Promise;
+var db = mongoose.connection;
+var url = 'mongodb://localhost/bi-steps';
+mongoose.connect(url);
+
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 var app = express();
 
@@ -31,7 +38,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(methodOverride("_method"));
 
+app.use('/authors', authors);
 app.use('/categories', categories);
 app.use('/', index);
 app.use('/users', users);

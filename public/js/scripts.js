@@ -4,3 +4,8 @@ $(document).ready(function(){
         $(this).addClass('active');
     });
 })
+
+
+$('.ui.dropdown')
+    .dropdown()
+;
