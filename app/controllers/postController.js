@@ -2,43 +2,42 @@ var Post = require('../models/posts');
 var Category = require('../models/category');
 var Author = require('../models/author');
 
+var async = require('async');
+
 exports.post_list = function (req, res) {
     Post.
         find({}).
-        populate('Category').
+        populate('category').
         populate('author').
         exec (function (err, posts) {
         if(err){
             console.log(err);
         } else {
-            console.log('Check this out ' + posts);
             res.render('posts/index', { title: 'Posts', posts:posts });
         }
     })
 };
 
 exports.post_new = function (req, res) {
-    Category.
-        find({}).
-        select('_id description').
-        sort({sequence: 1}).
-        exec(function(err, listCategories) {
+    async.parallel({
+        categories: function (callback) {
+            Category.
+                find({}).
+                select('_id description').
+                sort({sequence: 1}).
+                exec(callback);
+        },
+        authors: function (callback) {
+            Author.
+                find({}).
+                select('_id name').
+                exec(callback);
+        },
+    }, function (err, results) {
         if(err) {
-            console.log(err);
+            console.log(err)
         } else {
-            console.log(listCategories);
-        Author.
-            find({}).
-            select('_id name').
-            exec(function(err, listAuthors) {
-            if(err) {
-                console.log(err);
-            } else {
-                console.log(listAuthors);
-                res.render('posts/new', { title: 'New Post', categories:listCategories, authors:listAuthors});
-            }
-        })
-
+            res.render('posts/new', { title: 'New Post', categories: results.categories, authors: results.authors});
         }
     })
 };
@@ -48,33 +47,22 @@ exports.post_save = function (req, res) {
     var title = req.body.title,
         summary = req.body.summary,
         category = req.body.category,
-        author = {
-            id: req.author._id,
-            name: req.author.name
-    },
+        author = req.body.author,
         newPost = {title: title, summary: summary, category: category, author: author};
-        console.log('AUTHOR:' + author)
     Post.create(newPost, function (err, post) {
-        Author.findOne({name: author}, function (err, foundAuthor) {
-            if(err) {
-                console.log(err);
-            } else {
-                foundAuthor.posts.push(post._id);
-                foundAuthor.save(function(err, data){
-                    if(err){
-                        console.log(err);
-                    } else {
-                        //console.log(data);
-                        res.redirect('/posts');
-                    }
-                })
-            }
-        });
+        if(err){
+            console.log(err);
+        } else {
+            res.redirect('/posts');
+        }
     })
 };
 
 exports.post_show = function (req, res) {
-    Post.findById(req.params.id).populate('category').exec(function(err, foundPost){
+    Post.findById(req.params.id)
+        .populate('category')
+        .populate('author')
+        .exec(function(err, foundPost){
         if(err){
             console.log(err);
         } else {

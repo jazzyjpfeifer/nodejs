@@ -3,8 +3,7 @@ var mongoose = require('mongoose'),
 
 var categorySchema = new Schema({
     description: String,
-    sequence: Number,
-    posts: [{type: Schema.Types.ObjectId, ref: 'Post'}]
+    sequence: Number
 });
 
 module.exports = mongoose.model("Category", categorySchema);

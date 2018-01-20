@@ -6,7 +6,7 @@ var postSchema = new Schema({
     title: String,
     summary: String,
     author: { type: Schema.Types.ObjectId, ref: 'Author'},
-    category: { id: {type: Schema.Types.ObjectId, ref: 'Category'} },
+    category: { type: Schema.Types.ObjectId, ref: 'Category'},
     date_posted: { type: Date, default: Date.now }
 });
 

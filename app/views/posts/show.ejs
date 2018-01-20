@@ -5,27 +5,37 @@
 <% include ../partials/header.ejs %>
 <div class="ui container main admin-menu">
     <h1 class="ui header"><%= post.title%></h1>
-    <p><%= post.Category.category%></p>
+    <p><%= post.author.name%> on <%= post.date_posted_formatted%></p>
+    <h4>Post Details:</h4>
     <table class="ui table">
         <thead>
         <tr>
-            <th>Title:</th>
-            <th>Summary:</th>
-            <th>Category Type:</th>
-            <th>Author:</th>
-            <th>Date Posted:</th>
+            <th>Content Type:</th>
+            <th>Content:</th>
+            <th>File Path:</th>
+            <th>Sequence:</th>
+            <th>Actions:</th>
         </tr>
         </thead>
         <tbody>
         <tr>
-            <td><%= post.title%></td>
-            <td><%= post.summary%></td>
-            <td><%= post.categories%></td>
-            <td><%= post.author%></td>
-            <td><%= post.date_posted_formatted%></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                <a class="ui tiny button edit" href="/posts/<%=post._id%>/show">Details</a>
+                <a class="ui tiny button edit" href="/posts/<%=post._id%>/edit">Edit</a>
+                <form class=delete-button id="delete-form" action="posts/<%=post._id %>?_method=DELETE" method="post">
+                    <input  type="submit" class="ui tiny button" value="Delete">
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>
+    <a href="/posts/new" class="ui teal button">
+        <i class="add icon"></i>Add Details to Post
+    </a>
     <div class="ui hidden divider">
         <a href="/posts">Go Back</a>
     </div>
