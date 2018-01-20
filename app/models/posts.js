@@ -5,8 +5,8 @@ var mongoose = require('mongoose'),
 var postSchema = new Schema({
     title: String,
     summary: String,
-    authors: [{ type: Schema.Types.ObjectId, ref: 'Author'}],
-    category: [{ type: Schema.Types.ObjectId, ref: 'Category' }],
+    author: { type: Schema.Types.ObjectId, ref: 'Author'},
+    category: { id: {type: Schema.Types.ObjectId, ref: 'Category'} },
     date_posted: { type: Date, default: Date.now }
 });
 

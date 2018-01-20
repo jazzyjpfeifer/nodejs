@@ -1,9 +1,8 @@
-var Author = require('../models/authorInstance');
+var Author = require('../models/author');
 
 exports.author_show = function (req, res) {
     Author.
         find({}).
-        populate('posts').
         exec (function(err, allAuthors){
         if(err){
             console.log(err);

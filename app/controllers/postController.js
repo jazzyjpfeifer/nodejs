@@ -1,18 +1,18 @@
-var Post = require('../models/postInstance');
-var Category = require('../models/categoryInstance');
-var Author = require('../models/authorInstance');
+var Post = require('../models/posts');
+var Category = require('../models/category');
+var Author = require('../models/author');
 
-exports.post_show = function (req, res) {
+exports.post_list = function (req, res) {
     Post.
         find({}).
-        populate('category').
+        populate('Category').
         populate('author').
         exec (function (err, posts) {
         if(err){
             console.log(err);
         } else {
             console.log('Check this out ' + posts);
-            res.render('posts/show', { title: 'Posts', posts:posts });
+            res.render('posts/index', { title: 'Posts', posts:posts });
         }
     })
 };
@@ -48,9 +48,12 @@ exports.post_save = function (req, res) {
     var title = req.body.title,
         summary = req.body.summary,
         category = req.body.category,
-        author = req.body.author;
-        newPost = {title: title, summary: summary, category: category, author: author._id};
-
+        author = {
+            id: req.author._id,
+            name: req.author.name
+    },
+        newPost = {title: title, summary: summary, category: category, author: author};
+        console.log('AUTHOR:' + author)
     Post.create(newPost, function (err, post) {
         Author.findOne({name: author}, function (err, foundAuthor) {
             if(err) {
@@ -60,12 +63,24 @@ exports.post_save = function (req, res) {
                 foundAuthor.save(function(err, data){
                     if(err){
                         console.log(err);
-                    } else {console.log(data);
+                    } else {
+                        //console.log(data);
                         res.redirect('/posts');
                     }
                 })
             }
         });
+    })
+};
+
+exports.post_show = function (req, res) {
+    Post.findById(req.params.id).populate('category').exec(function(err, foundPost){
+        if(err){
+            console.log(err);
+        } else {
+            console.log(foundPost);
+            res.render('posts/show', {title: 'New Post', post: foundPost});
+        }
     })
 };
 

@@ -7,8 +7,9 @@ var express = require('express'),
     mongoose = require('mongoose'),
     methodOverride = require('method-override');
 //Models
-var Category = require('./app/models/categoryInstance'),
-    Post = require('./app/models/postInstance');
+var Author = require('./app/models/author'),
+    Category = require('./app/models/category'),
+    Post = require('./app/models/posts');
 
 
 //require routes

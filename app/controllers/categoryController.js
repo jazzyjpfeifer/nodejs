@@ -1,4 +1,4 @@
-var Category = require('../models/categoryInstance'),
+var Category = require('../models/category'),
     async = require('async');
 
 exports.category_show = function (req, res) {

@@ -4,8 +4,7 @@
 <body>
 <% include ../partials/header.ejs %>
 <div class="ui container main admin-menu">
-    <h1 class="ui header"><%= post.title%></h1>
-    <p><%= post.Category.category%></p>
+    <h1 class="ui header">Posts</h1>
     <table class="ui table">
         <thead>
         <tr>
@@ -14,20 +13,33 @@
             <th>Category Type:</th>
             <th>Author:</th>
             <th>Date Posted:</th>
+            <th>Actions:</th>
         </tr>
         </thead>
         <tbody>
+        <% posts.forEach(function(post){ %>
         <tr>
             <td><%= post.title%></td>
             <td><%= post.summary%></td>
-            <td><%= post.categories%></td>
+            <td><%= post.category%></td>
             <td><%= post.author%></td>
             <td><%= post.date_posted_formatted%></td>
+            <td>
+                <a class="ui tiny button edit" href="/posts/<%=post._id%>/show">Show</a>
+                <a class="ui tiny button edit" href="/posts/<%=post._id%>/edit">Edit</a>
+                <form class=delete-button id="delete-form" action="posts/<%=post._id %>?_method=DELETE" method="post">
+                    <input  type="submit" class="ui tiny button" value="Delete">
+                </form>
+            </td>
         </tr>
+        <% }) %>
         </tbody>
     </table>
+    <a href="/posts/new" class="ui teal button">
+        <i class="add icon"></i>Add Post
+    </a>
     <div class="ui hidden divider">
-        <a href="/posts">Go Back</a>
+        <a href="/admin">Go Back</a>
     </div>
 </div>
 <% include ../partials/footer.ejs %>

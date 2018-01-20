@@ -19,7 +19,7 @@
             <div class="ui selection dropdown">
                 <input type="hidden" name="category"/>
                 <i class="dropdown icon"></i>
-                <div class="default text">SSMS</div>
+                <div class="default text">Select one...</div>
                 <div class="menu">
                     <% categories.forEach(function(category){ %>
                     <div class="item" data-value="<%= category._id %>"><%= category.description %></div>
@@ -32,7 +32,7 @@
             <div class="ui selection dropdown">
                 <input type="hidden" name="author"/>
                 <i class="dropdown icon"></i>
-                <div class="default text"></div>
+                <div class="default text">Select one...</div>
                 <div class="menu">
                     <% authors.forEach(function(author){ %>
                     <div class="item" data-value="<%= author.name %>"><%= author.name %></div>

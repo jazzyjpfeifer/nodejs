@@ -1,4 +1,4 @@
-var Category = require('../models/categoryInstance');
+var Category = require('../models/category');
 
 exports.index = function (req, res) {
     Category.
