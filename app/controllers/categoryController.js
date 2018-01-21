@@ -42,7 +42,7 @@ exports.category_save = function (req, res) {
 exports.category_edit = function (req, res) {
     Category.findById(req.params.id, function (err, foundCategory) {
             res.render('categories/edit', {title: 'Edit Category', category: foundCategory});
-    });
+    })
 };
 
 exports.category_update = function (req, res) {
@@ -56,7 +56,7 @@ exports.category_update = function (req, res) {
             console.log('Records have been updated to the database: \n Description: ' + desc + '\n Sequence: ' + seq);
             res.redirect('/categories');
         }
-    });
+    })
 };
 
 exports.category_delete = function (req, res) {
@@ -66,6 +66,6 @@ exports.category_delete = function (req, res) {
         } else {
             res.redirect("/categories");
         }
-    });
+    })
 };
 

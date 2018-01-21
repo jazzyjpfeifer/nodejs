@@ -4,33 +4,13 @@
 <body>
 <% include ../partials/header.ejs %>
 <div class="ui container main admin-menu">
-    <h1 class="ui header">Authors</h1>
-    <table class="ui table">
-        <thead>
-        <tr>
-            <th>Name:</th>
-            <th>Actions:</th>
-        </tr>
-        </thead>
-        <tbody>
-        <% authors.forEach(function(author){ %>
-        <tr>
-            <td><%= author.name%></td>
-            <td>
-                <a class="ui tiny button edit" href="/categories/<%=author._id%>/edit">Edit</a>
-                    <form class=delete-button id="delete-form" action="categories/<%=author._id %>?_method=DELETE" method="post">
-                        <input  type="submit" class="ui tiny button" value="Delete">
-                    </form>
-            </td>
-        </tr>
-        <% }) %>
-        </tbody>
-    </table>
-    <a href="/authors/new" class="ui teal button">
-        <i class="add icon"></i>Add New Author
-    </a>
+    <h1 class="ui header">Author Details</h1>
+    <p><%= author.name%></p>
+    <h3>Bio:</h3>
+    <p><%= author.bio%></p>
+
     <div class="ui hidden divider">
-        <a href="/admin">Go Back</a>
+        <a href="/authors">Go Back</a>
     </div>
 </div>
 <% include ../partials/footer.ejs %>

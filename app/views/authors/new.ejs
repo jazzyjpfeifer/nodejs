@@ -7,8 +7,12 @@
     <h1 class="ui header">Author Form</h1>
     <form action="/authors" method="post" class="ui form">
         <div class="field">
-            <label id="description">Name:</label>
+            <label for="name">Name:</label>
             <input type="text" id="name" name="name"/>
+        </div>
+        <div class="field">
+            <label for="bio">Bio:</label>
+            <textarea id="bio" name="bio"></textarea>
         </div>
         <button class="ui button" type="submit">Submit</button>
     </form>
