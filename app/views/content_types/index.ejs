@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<% include ../partials/head.ejs %>
+<body>
+<% include ../partials/header.ejs %>
+<div class="ui container main admin-menu">
+    <h1 class="ui header">Content Types</h1>
+    <table class="ui table">
+        <thead>
+        <tr>
+            <th>Content Type:</th>
+            <th>Sequence:</th>
+            <th>Actions:</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% content_types.forEach(function(content_type){ %>
+        <tr>
+            <td><%= content_type.description%></td>
+            <td><%= content_type.sequence%></td>
+            <td>
+                <a class="ui tiny button edit" href="/content_types/<%=content_type._id%>/edit">Edit</a>
+                    <form class=delete-button id="delete-form" action="content_types/<%=content_type._id %>?_method=DELETE" method="post">
+                        <input  type="submit" class="ui tiny button" value="Delete">
+                    </form>
+            </td>
+        </tr>
+        <% }) %>
+        </tbody>
+    </table>
+    <a href="/content_types/new" class="ui teal button">
+        <i class="add icon"></i>Add Content Type
+    </a>
+    <div class="ui hidden divider">
+        <a href="/admin">Go Back</a>
+    </div>
+</div>
+<% include ../partials/footer.ejs %>
+</body>
+</html>

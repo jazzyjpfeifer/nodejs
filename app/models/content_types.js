@@ -2,7 +2,8 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var content_typesSchema = new Schema({
-    name: String
+    description: String,
+    sequence: Number
 });
 
 

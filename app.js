@@ -11,10 +11,10 @@ var Author = require('./app/models/author'),
     Category = require('./app/models/category'),
     Post = require('./app/models/posts');
 
-
 //require routes
 var authors = require('./routes/authors'),
     categories = require('./routes/categories'),
+    content_types = require('./routes/content_types'),
     index = require('./routes/index'),
     users = require('./routes/users'),
     posts = require('./routes/posts');
@@ -43,6 +43,7 @@ app.use(methodOverride("_method"));
 
 app.use('/authors', authors);
 app.use('/categories', categories);
+app.use('/content_types', content_types);
 app.use('/', index);
 app.use('/users', users);
 app.use('/posts', posts);
